@@ -1,4 +1,4 @@
-import strutils, sequtils
+import sequtils
 
 var
     file: File
