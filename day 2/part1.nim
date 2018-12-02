@@ -1,4 +1,4 @@
-import sequtils
+from seqUtils import toSeq, count
 
 var
     file: File

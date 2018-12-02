@@ -1,4 +1,5 @@
-import sequtils
+from strutils import join
+from sequtils import toSeq
 
 var
     file: File
