@@ -23,11 +23,12 @@ proc getDiffIndex(a: string, b: string): int =
     for i, _ in a.pairs:
         if a[i] != b[i]: return i
 
-for input in inputs:
-    for compare in inputs:
-        let diff: int = input.compareTo(compare)
-        if diff == 0: continue
-        if diff == 1:
-            var inputSeq: seq[char] = toSeq(input.items)
-            inputSeq.delete(input.getDiffIndex(compare))
-            echo inputSeq.join("")
+block outer:
+    for input in inputs:
+        for compare in inputs:
+            let diff: int = input.compareTo(compare)
+            if diff == 1:
+                var inputSeq: seq[char] = toSeq(input.items)
+                inputSeq.delete(input.getDiffIndex(compare))
+                echo inputSeq.join("")
+                break outer
