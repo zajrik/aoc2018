@@ -30,7 +30,7 @@ for item in input:
     for i in item.y .. item.y + item.h:
         for j in item.x .. item.x + item.w:
             index = (i * 1000) + j
-            points[index - 1] += 1
+            points[index] += 1
 
 proc find(a: seq[FabricSection], fn: FabricSection -> bool): FabricSection =
     for i in a:
