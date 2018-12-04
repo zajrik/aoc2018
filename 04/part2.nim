@@ -1,6 +1,6 @@
 import tables, nre, times, algorithm, sugar
 from strutils import splitLines, parseInt
-from sequtils import map, foldl, count
+from sequtils import map
 
 type
     GuardSleepArray = array[60, int]
