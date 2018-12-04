@@ -14,6 +14,12 @@ type
         action: Action
         id: int
 
+let
+    dateTimeRegex: Regex = re"^\[(.+)\]"
+    minuteRegex: Regex = re"^\[\d{4}-\d{2}-\d{2} \d{2}:(\d{2})"
+    guardRegex: Regex = re"^\[.+\] Guard #(\d+)"
+    actionRegex: Regex = re"^\[.+\] (?:Guard #\d+ )?(falls|wakes|begins)"
+
 # Forward declare createEvent()
 proc createEvent(a: string): Event
 
@@ -23,11 +29,6 @@ var
 
     highestIndex: int = 0
     highestValue: int = 0
-
-    dateTimeRegex: Regex = re"^\[(.+)\]"
-    minuteRegex: Regex = re"^\[\d{4}-\d{2}-\d{2} \d{2}:(\d{2})"
-    guardRegex: Regex = re"^\[.+\] Guard #(\d+)"
-    actionRegex: Regex = re"^\[.+\] (?:Guard #\d+ )?(falls|wakes|begins)"
 
     guards: Table[int, GuardSleepArray] = initTable[int, GuardSleepArray]()
     input: seq[Event] = readFile("input.txt")
