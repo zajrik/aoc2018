@@ -10,6 +10,7 @@ type
         width: int
         height: int
 
+# Return whether the given point is within the bounds of the FabricSection
 proc withinBounds(f: FabricSection, x: int, y: int): bool =
     x >= f.top and 
         y >= f.left and
@@ -29,6 +30,7 @@ var
             width: parseInt(a[2].split('x')[0]),
             height: parseInt(a[2].split('x')[1])))
 
+# Return the number of intersections at the given point out of all FabricSections
 proc numberOfIntersectsAtPoint(x: int, y: int): int =
     for square in input:
         if square.withinBounds(x, y):

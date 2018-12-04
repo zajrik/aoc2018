@@ -32,6 +32,7 @@ for item in input:
             index = (i * 1000) + j
             points[index] += 1
 
+# Find the first item in the sequence matching the given predicate
 proc find(a: seq[FabricSection], fn: FabricSection -> bool): FabricSection =
     for i in a:
         if fn(i): return i
