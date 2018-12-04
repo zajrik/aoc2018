@@ -23,17 +23,9 @@ let
 # Forward declare createEvent()
 proc createEvent(a: string): Event
 
-var
-    currentGuard: int = 0
-    laziestGuard: int = 0
-
-    highestIndex: int = 0
-    highestValue: int = 0
-
-    guards: Table[int, GuardSleepArray] = initTable[int, GuardSleepArray]()
-    input: seq[Event] = readFile("input.txt")
-        .splitLines
-        .map(createEvent)
+var input: seq[Event] = readFile("input.txt")
+    .splitLines
+    .map(createEvent)
 
 input.sort((a, b) => cmp(a.time, b.time))
 
@@ -64,6 +56,10 @@ proc newGuardSleepArray(): GuardSleepArray =
     for a in result.mitems: a = 0
 
 # Set up guard sleep data
+var 
+    currentGuard: int = 0
+    guards: Table[int, GuardSleepArray] = initTable[int, GuardSleepArray]()
+
 for i, event in input.pairs:
     if event.id > 0: currentGuard = event.id
     else: event.id = currentGuard
@@ -77,6 +73,11 @@ for i, event in input.pairs:
         of Action.sleep:
             for j in event.minute..(input[i + 1].minute - 1):
                 guards[event.id][j] += 1
+
+var
+    laziestGuard: int = 0
+    highestIndex: int = 0
+    highestValue: int = 0
 
 for k, v in guards.pairs:
     for i, j in v.pairs:

@@ -23,14 +23,9 @@ let
 # Forward declare createEvent()
 proc createEvent(a: string): Event
 
-var
-    currentGuard: int = 0
-    laziestGuard: (int, int) = (0, 0)
-
-    guards: Table[int, GuardSleepArray] = initTable[int, GuardSleepArray]()
-    input: seq[Event] = readFile("input.txt")
-        .splitLines
-        .map(createEvent)
+var input: seq[Event] = readFile("input.txt")
+    .splitLines
+    .map(createEvent)
 
 input.sort((a, b) => cmp(a.time, b.time))
 
@@ -76,6 +71,10 @@ proc findLargestIndex(a: GuardSleepArray): int =
             lastLargest = j
 
 # Set up guard sleep data
+var
+    currentGuard: int = 0
+    guards: Table[int, GuardSleepArray] = initTable[int, GuardSleepArray]()
+
 for i, event in input.pairs:
     if event.id > 0: currentGuard = event.id
     else: event.id = currentGuard
@@ -90,6 +89,7 @@ for i, event in input.pairs:
             for j in event.minute..(input[i + 1].minute - 1):
                 guards[event.id][j] += 1
 
+var laziestGuard: (int, int) = (0, 0)
 for id, guard in guards.pairs:
     let asleep: int = guard.minutesAsleep()
     if laziestGuard[0] == 0: laziestGuard = (id, asleep)
