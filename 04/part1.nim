@@ -14,9 +14,6 @@ type
         action: Action
         id: int
 
-    Guard = ref object
-        sleep: GuardSleepArray
-
 # Forward declare createEvent()
 proc createEvent(a: string): Event
 
