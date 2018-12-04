@@ -1,4 +1,4 @@
-import tables, nre, times, strformat, algorithm, sugar
+import tables, nre, times, algorithm, sugar
 from strutils import splitLines, parseInt
 from sequtils import map, foldl
 
@@ -33,16 +33,16 @@ input.sort((a, b) => cmp(a.time, b.time))
 
 # Create and return an Event object from the given string data
 proc createEvent(a: string): Event =
+    let
+        parsedAction: string = a.match(actionRegex).get().captures[0]
+        minute: int = parseInt(a.match(minuteRegex).get().captures[0])
+        time: Time =
+            parseTime(a.match(dateTimeRegex).get().captures[0], "yyyy-MM-dd HH:mm", utc())
+
     var
         id: int = 0
-        parsedAction: string
-        time: Time
-        minute: int
         action: Action
-        
-    parsedAction = a.match(actionRegex).get().captures[0]
-    minute = parseInt(a.match(minuteRegex).get().captures[0])
-    time = parseTime(a.match(dateTimeRegex).get().captures[0], "yyyy-MM-dd HH:mm", utc())
+
     if a.find(guardRegex).isSome():
         id = parseInt(a.match(guardRegex).get().captures[0])
 
@@ -50,7 +50,7 @@ proc createEvent(a: string): Event =
         of "begins": action = Action.begin
         of "falls": action = Action.sleep
         of "wakes": action = Action.wake
-        
+
     Event(time: time.toUnix(), minute: minute, action: action, id: id)
 
 # Create and return a 0-filled array to contain guard sleep data
