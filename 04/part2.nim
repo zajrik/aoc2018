@@ -74,6 +74,7 @@ for i, event in input.pairs:
             for j in event.minute..(input[i + 1].minute - 1):
                 guards[event.id][j] += 1
 
+# Find solution
 var
     laziestGuard: int = 0
     highestIndex: int = 0

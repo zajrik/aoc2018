@@ -89,6 +89,7 @@ for i, event in input.pairs:
             for j in event.minute..(input[i + 1].minute - 1):
                 guards[event.id][j] += 1
 
+# Find solution
 var laziestGuard: (int, int) = (0, 0)
 for id, guard in guards.pairs:
     let asleep: int = guard.minutesAsleep()
