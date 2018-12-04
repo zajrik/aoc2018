@@ -87,7 +87,7 @@ for i, event in input.pairs:
                 guards[event.id][j] += 1
 
 for id, guard in guards.pairs:
-    let asleep = guard.minutesAsleep()
+    let asleep: int = guard.minutesAsleep()
     if laziestGuard[0] == 0: laziestGuard = (id, asleep)
     if asleep > laziestGuard[1]: laziestGuard = (id, asleep)
 
