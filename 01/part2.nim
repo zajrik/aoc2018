@@ -1,20 +1,12 @@
 import tables
-from strutils import parseInt
+from strutils import parseInt, splitLines
 
 var
-    frequencies: Table[int, bool] = initTable[int, bool]()
     frequency: int = 0
+    frequencies: Table[int, bool] = initTable[int, bool]()
     foundDuplicate: bool = false
-    file: File
-    inputs: seq[string] = @[]
-
-discard open(file, "input.txt")
-
-while true:
-    if endOfFile(file): break
-    inputs.add(readLine(file))
-
-close(file)
+    inputs: seq[string] = readFile("input.txt")
+        .splitLines
 
 while not foundDuplicate:
     for input in inputs:
