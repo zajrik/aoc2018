@@ -1,18 +1,11 @@
-from seqUtils import toSeq, count
+from sequtils import toSeq, count
+from strutils import splitLines
 
 var
-    file: File
-    inputs: seq[string] = @[]
     twos: int = 0
     threes: int = 0
-
-discard open(file, "input.txt")
-
-while true:
-    if endOfFile(file): break
-    inputs.add(readLine(file))
-
-close(file)
+    inputs: seq[string] = readFile("input.txt")
+        .splitLines
 
 for input in inputs:
     let letters: seq[char] = toSeq(input.items)

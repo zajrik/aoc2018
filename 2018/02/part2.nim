@@ -1,17 +1,7 @@
-from strutils import join
+from strutils import join, splitLines
 from sequtils import toSeq
 
-var
-    file: File
-    inputs: seq[string] = @[]
-
-discard open(file, "input.txt")
-
-while true:
-    if endOfFile(file): break
-    inputs.add(readLine(file))
-
-close(file)
+var inputs: seq[string] = readFile("input.txt").splitLines
 
 # Return the number of characters different between two strings
 proc compareTo(a: string, b: string): int =
@@ -26,8 +16,7 @@ proc getDiffIndex(a: string, b: string): int =
 block outer:
     for input in inputs:
         for compare in inputs:
-            let diff: int = input.compareTo(compare)
-            if diff == 1:
+            if input.compareTo(compare) == 1:
                 var inputSeq: seq[char] = toSeq(input.items)
                 inputSeq.delete(input.getDiffIndex(compare))
                 echo inputSeq.join("")
