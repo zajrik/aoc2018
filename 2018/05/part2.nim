@@ -45,7 +45,8 @@ proc processPolymer(): int =
 
 # Create and process all 26 polymers
 for i in 0..25:
-    let c: char = char(int(($'a')[0]) + i)
+    echo "running iteration ", i
+    let c: char = char(int('a') + i)
     polymer = input.removeLetter(c)
     let len: int = processPolymer()
     if len < shortest: shortest = len
