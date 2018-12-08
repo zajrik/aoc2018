@@ -27,7 +27,7 @@ proc getClosest(x: int, y: int): int =
         node: Node = Node(x: x, y: y)
 
     for i in 0 .. nodes.high:
-        var distance: int = manhattanDistance(node, nodes[i])
+        let distance: int = manhattanDistance(node, nodes[i])
         if distance < min:
             min = distance
             minIndex = i
@@ -56,7 +56,7 @@ proc max[T](s: seq[T]): T =
 # Find solution
 for i in 0 .. GRID_SIZE - 1:
     for j in 0 .. GRID_SIZE - 1:
-        var distance: int = getClosest(i, j)
+        let distance: int = getClosest(i, j)
         counts.merge(distance, 1, (a, b) => a + b)
 
         if (i == 0) or (i == GRID_SIZE - 2) or (j == 0) or (j == GRID_SIZE - 2):

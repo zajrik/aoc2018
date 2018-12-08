@@ -21,9 +21,8 @@ proc manhattanDistance(a: Node, b: Node): int =
 # Find solution
 for i in 0 .. GRID_SIZE - 1:
     for j in 0 .. GRID_SIZE - 1:
-        var
-            current: Node = Node(x: j, y: i)
-            sum: int
+        let current: Node = Node(x: j, y: i)
+        var sum: int = 0
 
         for node in nodes:
             sum += current.manhattanDistance(node)
