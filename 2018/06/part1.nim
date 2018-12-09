@@ -50,7 +50,7 @@ for i in 0 .. GRID_SIZE - 1:
         let distance: int = getClosest(i, j)
         counts.incr(distance)
 
-        if (i == 0) or (i == GRID_SIZE - 2) or (j == 0) or (j == GRID_SIZE - 2):
+        if (i == 0) or (i == GRID_SIZE - 1) or (j == 0) or (j == GRID_SIZE - 1):
             infinities.incl(distance)
 
 echo toSeq({0 .. nodes.high}.items)
