@@ -23,30 +23,21 @@ proc manhattanDistance(a: Node, b: Node): int =
 proc getClosest(x: int, y: int): int =
     var
         min: int = 10000
-        minIndex: int = 0
         node: Node = Node(x: x, y: y)
 
     for i in 0 .. nodes.high:
         let distance: int = manhattanDistance(node, nodes[i])
         if distance < min:
             min = distance
-            minIndex = i
+            result = i
         elif distance == min:
             min = distance
-            minIndex = -1
+            result = -1
 
-    return minIndex
-
-# Merge a value with the value of the given table and key using the predicate
-# procedure or simply insert the value if it doesn't already exist
-proc merge[T, U](t: var Table[T, U], k: T, v: U, fn: (a: U, b: U) -> U): void =
-    var newVal: U
-
-    if not t.hasKey(k): newVal = v
-    else: newVal = fn(t[k], v)
-
-    if t.hasKey(k): t[k] = newVal
-    else: t.add(k, newVal)
+# Increment the value at the given key, or insert 1 if it does not exist
+proc incr[T](t: var Table[T, int], k: T): void =
+    if t.hasKey(k): t[k] += 1
+    else: t.add(k, 1)
 
 # Return the maximum value within the given sequence
 proc max[T](s: seq[T]): T =
@@ -57,7 +48,7 @@ proc max[T](s: seq[T]): T =
 for i in 0 .. GRID_SIZE - 1:
     for j in 0 .. GRID_SIZE - 1:
         let distance: int = getClosest(i, j)
-        counts.merge(distance, 1, (a, b) => a + b)
+        counts.incr(distance)
 
         if (i == 0) or (i == GRID_SIZE - 2) or (j == 0) or (j == GRID_SIZE - 2):
             infinities.incl(distance)
