@@ -1,34 +1,29 @@
 from sequtils import toSeq
 from strutils import join
 
-var
-    polymer: seq[char] = toSeq(readFile("input.txt").string.items)
-    previous: seq[char] = @[]
-    done: bool = false
-    iter: int = 1
+let polymer = readFile("input.txt").string
 
 # Return the opposite case of the given character
 proc getOppositeCase(c: char): char =
     return char(int(c) xor 32)
 
-# Process the polymer until no pairs remain
-while not done:
-    done = true
-    var i: int = 0
-    while i <= polymer.high:
-        if i == polymer.high:
-            if polymer.join("") != previous.join(""):
-                previous = toSeq(polymer.items)
-                done = false
-            break
+proc process(s: string): string
+proc process(s1: string, s2: string): string
 
-        if polymer[i].getOppositeCase() == polymer[i + 1]:
-            polymer.delete(i)
-            polymer.delete(i)
-            i -= 2
-            if i < 0: i = 0
+proc process(s: string): string =
+    for i, c in s.pairs:
+        if i == s.high: return s
+        if c.getOppositeCase() == s[i + 1]:
+            return process(s[0 .. i - 1], s[i + 2 .. ^1])
 
-        i += 1
-    iter += 1
+proc process(s1: string, s2: string): string =
+    if s2.len == 0: return process(s1)
+    if s1.len == 1 and s1[0].getOppositeCase() == s2[0]:
+        return process(s2[1..^1])
+        
+    if s1[^1].getOppositeCase() == s2[0]:
+        return process(s1[0 .. ^2], s2[1 .. ^1])
 
-echo polymer.len
+    return process(s1 & s2)
+
+echo polymer.process().len
