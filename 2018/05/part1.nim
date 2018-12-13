@@ -7,6 +7,7 @@ let polymer = readFile("input.txt").string
 proc getOppositeCase(c: char): char =
     return char(int(c) xor 32)
 
+# Process the given polymer, removing any reacting pairs
 proc process(s: string): string
 proc process(s1: string, s2: string): string
 
@@ -26,4 +27,5 @@ proc process(s1: string, s2: string): string =
 
     return process(s1 & s2)
 
+# Find solution
 echo polymer.process().len
