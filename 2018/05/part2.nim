@@ -34,7 +34,7 @@ proc process(s1: string, s2: string): string =
         return process(s2[1..^1])
         
     if s1[^1].getOppositeCase() == s2[0]:
-        return process(s1[0 .. ^2], s2[1 .. ^1])
+        return process(s1[0..^2], s2[1..^1])
 
     return process(s1 & s2)
 
